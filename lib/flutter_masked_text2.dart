@@ -2,16 +2,19 @@ library flutter_masked_text2;
 
 import 'package:flutter/material.dart';
 
+typedef BeforeChangeModifier = String Function(String text);
+
 class MaskedTextController extends TextEditingController {
   MaskedTextController(
-      {String? text, this.mask, Map<String, RegExp>? translator})
+      {String? text, this.mask, Map<String, RegExp>? translator, this.beforeChangeModifier})
       : super(text: text) {
     this.translator = translator ?? MaskedTextController.getDefaultTranslator();
 
     this.addListener(() {
       var previous = this._lastUpdatedText;
       if (this.beforeChange(previous, this.text)) {
-        this.updateText(this.text);
+        final modifiedText = beforeChangeModifier?.call(this.text);
+        this.updateText(modifiedText ?? this.text);
         this.afterChange(previous, this.text);
       } else {
         this.updateText(this._lastUpdatedText);
@@ -24,6 +27,7 @@ class MaskedTextController extends TextEditingController {
   String? mask;
 
   late Map<String, RegExp> translator;
+  BeforeChangeModifier? beforeChangeModifier;
 
   Function afterChange = (String previous, String next) {};
   Function beforeChange = (String previous, String next) {
@@ -50,7 +54,7 @@ class MaskedTextController extends TextEditingController {
   void moveCursorToEnd() {
     var text = this._lastUpdatedText;
     this.selection =
-        new TextSelection.fromPosition(new TextPosition(offset: (text).length));
+    new TextSelection.fromPosition(new TextPosition(offset: (text).length));
   }
 
   @override
