@@ -1,3 +1,8 @@
+## 1.0.0
+
+- BREAKING CHANGE: Package name change
+- Update readme
+
 ## 0.9.1
 
 - Update readme
