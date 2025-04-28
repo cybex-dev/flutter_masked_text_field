@@ -5,9 +5,12 @@ import 'package:flutter/material.dart';
 typedef BeforeChangeModifier = String Function(String text);
 
 class MaskedTextController extends TextEditingController {
-  MaskedTextController(
-      {String? text, this.mask, Map<String, RegExp>? translator, this.beforeChangeModifier})
-      : super(text: text) {
+  MaskedTextController({
+    String? text,
+    this.mask,
+    Map<String, RegExp>? translator,
+    this.beforeChangeModifier,
+  }) : super(text: text) {
     this.translator = translator ?? MaskedTextController.getDefaultTranslator();
 
     this.addListener(() {
@@ -53,8 +56,7 @@ class MaskedTextController extends TextEditingController {
 
   void moveCursorToEnd() {
     var text = this._lastUpdatedText;
-    this.selection =
-    new TextSelection.fromPosition(new TextPosition(offset: (text).length));
+    this.selection = new TextSelection.fromPosition(new TextPosition(offset: (text).length));
   }
 
   @override
@@ -66,18 +68,13 @@ class MaskedTextController extends TextEditingController {
   }
 
   static Map<String, RegExp> getDefaultTranslator() {
-    return {
-      'A': new RegExp(r'[A-Za-z]'),
-      '0': new RegExp(r'[0-9]'),
-      '@': new RegExp(r'[A-Za-z0-9]'),
-      '*': new RegExp(r'.*')
-    };
+    return {'A': new RegExp(r'[A-Za-z]'), '0': new RegExp(r'[0-9]'), '@': new RegExp(r'[A-Za-z0-9]'), '*': new RegExp(r'.*')};
   }
 
   String _applyMask(String? mask, String value) {
     String result = '';
 
-    if(mask == null) {
+    if (mask == null) {
       return value;
     }
 
@@ -129,13 +126,14 @@ class MaskedTextController extends TextEditingController {
 
 /// Mask for monetary values.
 class MoneyMaskedTextController extends TextEditingController {
-  MoneyMaskedTextController(
-      {double initialValue = 0.0,
-      this.decimalSeparator = ',',
-      this.thousandSeparator = '.',
-      this.rightSymbol = '',
-      this.leftSymbol = '',
-      this.precision = 2}) {
+  MoneyMaskedTextController({
+    double initialValue = 0.0,
+    this.decimalSeparator = ',',
+    this.thousandSeparator = '.',
+    this.rightSymbol = '',
+    this.leftSymbol = '',
+    this.precision = 2,
+  }) {
     _validateConfig();
 
     this.addListener(() {
@@ -179,14 +177,12 @@ class MoneyMaskedTextController extends TextEditingController {
       this.text = masked;
 
       var cursorPosition = super.text.length - this.rightSymbol.length;
-      this.selection = new TextSelection.fromPosition(
-          new TextPosition(offset: cursorPosition));
+      this.selection = new TextSelection.fromPosition(new TextPosition(offset: cursorPosition));
     }
   }
 
   double get numberValue {
-    List<String> parts =
-        _getOnlyNumbers(this.text).split('').toList(growable: true);
+    List<String> parts = _getOnlyNumbers(this.text).split('').toList(growable: true);
 
     parts.insert(parts.length - precision, '.');
 
@@ -212,12 +208,7 @@ class MoneyMaskedTextController extends TextEditingController {
   }
 
   String _applyMask(double value) {
-    List<String> textRepresentation = value
-        .toStringAsFixed(precision)
-        .replaceAll('.', '')
-        .split('')
-        .reversed
-        .toList(growable: true);
+    List<String> textRepresentation = value.toStringAsFixed(precision).replaceAll('.', '').split('').reversed.toList(growable: true);
 
     textRepresentation.insert(precision, decimalSeparator);
 

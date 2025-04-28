@@ -4,17 +4,13 @@ import 'package:flutter_test/flutter_test.dart';
 void main() {
   group('masked text', () {
     test('12345678901 with mask 000.000.000-00 results 123.456.789-01', () {
-      var cpfController =
-          new MaskedTextController(text: '12345678901', mask: '000.000.000-00');
+      var cpfController = new MaskedTextController(text: '12345678901', mask: '000.000.000-00');
 
       expect(cpfController.text, '123.456.789-01');
     });
 
-    test(
-        '12345678901 with mask 000.000.000-00 and changed results 123.456.789.01',
-        () {
-      var cpfController =
-          new MaskedTextController(text: '12345678901', mask: '000.000.000-00');
+    test('12345678901 with mask 000.000.000-00 and changed results 123.456.789.01', () {
+      var cpfController = new MaskedTextController(text: '12345678901', mask: '000.000.000-00');
 
       expect(cpfController.text, '123.456.789-01');
 
@@ -52,8 +48,7 @@ void main() {
       var translator = MaskedTextController.getDefaultTranslator();
       translator.remove('*');
 
-      var controller = new MaskedTextController(
-          mask: '0000 **** **** 0000', translator: translator);
+      var controller = new MaskedTextController(mask: '0000 **** **** 0000', translator: translator);
       controller.updateText('12345678');
 
       expect(controller.text, '1234 **** **** 5678');
@@ -63,8 +58,7 @@ void main() {
       var translator = MaskedTextController.getDefaultTranslator();
       translator.remove('*');
 
-      var controller = new MaskedTextController(
-          mask: '0000 **** **** 0000', translator: translator);
+      var controller = new MaskedTextController(mask: '0000 **** **** 0000', translator: translator);
       controller.updateText('12345678');
 
       expect(controller.text, '1234 **** **** 5678');
@@ -102,16 +96,14 @@ void main() {
     });
 
     test('custom decimal and thousando separator results in 1,234.00', () {
-      var controller = new MoneyMaskedTextController(
-          decimalSeparator: '.', thousandSeparator: ',');
+      var controller = new MoneyMaskedTextController(decimalSeparator: '.', thousandSeparator: ',');
       controller.updateValue(1234.0);
 
       expect(controller.text, '1,234.00');
     });
 
     test('number value for 0,10 must be 0.1', () {
-      var controller = new MoneyMaskedTextController(
-          decimalSeparator: '.', thousandSeparator: ',');
+      var controller = new MoneyMaskedTextController(decimalSeparator: '.', thousandSeparator: ',');
       controller.updateValue(0.1);
 
       expect(controller.numberValue, 0.1);
@@ -132,9 +124,7 @@ void main() {
       expect(executor, throwsArgumentError);
     });
 
-    test(
-        'rightSymbol " US\$" with 12345678901234 must results in 123.456.789.012,34 US\$',
-        () {
+    test('rightSymbol " US\$" with 12345678901234 must results in 123.456.789.012,34 US\$', () {
       var controller = new MoneyMaskedTextController(rightSymbol: ' US\$');
       controller.updateValue(123456789012.34);
 
