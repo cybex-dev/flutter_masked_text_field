@@ -1,16 +1,8 @@
-# flutter_masked_text
+# flutter_masked_text_field
 
 Masked text input for flutter.
 
-![travis-ci](https://travis-ci.org/djade007/flutter_masked_text.svg?branch=master)
-
-![logo](doc/flutter_logo.png)
-
-## Alert
-
-Hi guys!
-
-Unfortunately, I'm not developing mobile anymore. This repo will not receive updates.
+Due to both the original developer [@bhrott](https://github.com/bhrott/flutter-masked-text) and replacement maintainer [djade007](https://github.com/djade007/flutter_masked_text) both abandoning the project, this project will further be maintained by [cybex-dev](https://github.com/cybex-dev/flutter_masked_text_field).
 
 ## Install
 
