@@ -1,4 +1,4 @@
-import 'package:flutter_masked_text2/flutter_masked_text2.dart';
+import 'package:flutter_masked_text_field/flutter_masked_text_field.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
