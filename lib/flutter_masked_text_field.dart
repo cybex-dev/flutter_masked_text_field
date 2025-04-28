@@ -83,7 +83,7 @@ class MaskedTextController extends TextEditingController {
 
     while (true) {
       // if mask is ended, break.
-      if (maskCharIndex == mask!.length) {
+      if (maskCharIndex == mask.length) {
         break;
       }
 
